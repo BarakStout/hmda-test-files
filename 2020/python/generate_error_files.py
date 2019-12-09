@@ -10,13 +10,13 @@ from lar_constraints import lar_data_constraints
 import lar_generator
 from test_file_generator import test_data_creator
 import utils
-#This script will generate files that fail specific syntax, validity, or quality edit 
+#This script will generate files that fail specific syntax, validity, or quality edit
 #(though others may also fail)
 #This script relies on the presence of a clean data file
 
 #load configurations
 config_file = 'configurations/clean_file_config.yaml'
-bank_config = 'configurations/bank1_config.yaml'
+bank_config = 'configurations/bank0_config.yaml'
 geo_config_file='configurations/geographic_data.yaml'
 filepaths_file = 'configurations/test_filepaths.yaml'
 lar_schema_file="../schemas/lar_schema.json"
@@ -55,10 +55,10 @@ test_file_gen = test_data_creator(ts_schema_file=ts_schema_file, lar_schema_file
 
 
 clean_data_path = filepaths["clean_filepath"].format(bank_name=bank_config_data["name"]["value"])
-clean_file_name = filepaths["clean_filename"].format(bank_name=bank_config_data["name"]["value"], 
+clean_file_name = filepaths["clean_filename"].format(bank_name=bank_config_data["name"]["value"],
 													 row_count=bank_config_data["file_length"]["value"])
 #load data to test file creator
-ts_df, lar_df = utils.read_data_file(path=clean_data_path, data_file=clean_file_name) 
+ts_df, lar_df = utils.read_data_file(path=clean_data_path, data_file=clean_file_name)
 
 test_file_gen.load_ts_data(ts_df)
 test_file_gen.load_lar_data(lar_df)
@@ -76,20 +76,16 @@ for edit in test_file_gen.test_file_funcs:
 #create validated quality files
 
 
-#Creates quality that pass syntax and validity for each test file 
+#Creates quality that pass syntax and validity for each test file
 #in the edits_files directory
 
-#validates quality edits to pass syntax and validity edits. 
-#Stores a list of filenames from the quality edits directory. 
+#validates quality edits to pass syntax and validity edits.
+#Stores a list of filenames from the quality edits directory.
 #quality_files = os.listdir(file.filepaths['quality_filepath'].format(bank_name=file.clean_config['name']['value']))
 
-#Validates quality edits and stores them in a new directory specified in the test filepaths configuration. 
+#Validates quality edits and stores them in a new directory specified in the test filepaths configuration.
 #FIXME: this creates a quality edit file that passes S/V for every file in the directory
 #FIXME: change this to only reference the quality files with the current clean file row count
 #for quality_file in quality_files:
 #	file.validate_quality_edit_file(quality_filename=quality_file)
 #
-
-
-
-

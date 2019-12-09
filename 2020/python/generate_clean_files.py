@@ -11,7 +11,7 @@ from rules_engine import rules_engine
 import utils
 
 config_file = 'configurations/clean_file_config.yaml'
-bank_config = 'configurations/fake0_config.yaml'
+bank_config = 'configurations/bank0_config.yaml'
 geo_config_file='configurations/geographic_data.yaml'
 filepaths_file = 'configurations/test_filepaths.yaml'
 lar_schema_file="../schemas/lar_schema.json"
@@ -39,7 +39,7 @@ if not os.path.exists(filepaths["log_filepath"]):
 	os.makedirs(filepaths["log_filepath"])
 
 #if LOGGING:
-logging.basicConfig(filename=filepaths["log_filepath"]+filepaths['log_filename'], format='%(asctime)s %(message)s', 
+logging.basicConfig(filename=filepaths["log_filepath"]+filepaths['log_filename'], format='%(asctime)s %(message)s',
 					datefmt='%m/%d/%Y %I:%M:%S %p', filemode=filepaths['log_mode'], level=logging.INFO)
 
 geographic_data = pd.read_csv(geo_config['geographic_data_file'], delimiter='|', header=0,
@@ -75,7 +75,7 @@ lar_rows = [] #list to hold all OrderedDict LAR records before writing to file
 for i in range(bank_config_data["file_length"]["value"]):
 	print("generating row {count}".format(count=i))
 	#create initial LAR row
-	lar_row = lar_gen.make_row(lar_file_config=lar_file_config_data, geographic_data=geographic_data, 
+	lar_row = lar_gen.make_row(lar_file_config=lar_file_config_data, geographic_data=geographic_data,
 							   state_codes=geo_config["state_codes_rev"], zip_code_list=zip_codes)
 	rules_engine.load_lar_data(lar_row) #loading lar_row to rules engine converts it to a dataframe for value checking
 
@@ -93,7 +93,7 @@ for i in range(bank_config_data["file_length"]["value"]):
 			logging.info(edit_report_df[edit_report_df.fail_count>0]) #log the edit fails for the row
 			logging.info("constraints iteration {}. checking difference in rows".format(constraints_iter))
 		lar_row_start_items = set(lar_row.items()) #capture initial row data before modifications to log difference between initial and changed row
-		
+
 		for constraint in lar_constraints.constraints: #loop over all constraint functions to force LAR data to conform to FIG spec
 			lar_row = getattr(lar_constraints, constraint)(lar_row) #lar_row is an ordered dict here
 		if LOGGING:
@@ -102,8 +102,8 @@ for i in range(bank_config_data["file_length"]["value"]):
 		#prepare new edit fails report for checking lar generation process this is the loop break condition
 		rules_engine.reset_results()
 		rules_engine.load_lar_data(lar_row)
-		edit_report_df = rules_engine.create_edit_report() 
-		
+		edit_report_df = rules_engine.create_edit_report()
+
 
 		if DEBUG:
 			print(len(edit_report_df[edit_report_df.fail_count>0]))
@@ -129,4 +129,3 @@ if not os.path.exists(clean_filepath):
 	os.makedirs(clean_filepath)
 
 utils.write_file(path=clean_filepath, name=clean_filename, ts_input=pd.DataFrame(ts_row, index=[0]), lar_input=lar_rows_df)
-

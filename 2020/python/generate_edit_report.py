@@ -12,7 +12,7 @@ from rules_engine import rules_engine
 
 #load configurations
 lar_config_file = 'configurations/clean_file_config.yaml'
-bank_config = 'configurations/bank1_config.yaml'
+bank_config = 'configurations/bank0_config.yaml'
 geo_config_file='configurations/geographic_data.yaml'
 filepaths_file = 'configurations/test_filepaths.yaml'
 lar_schema_file="../schemas/lar_schema.json"
@@ -48,7 +48,7 @@ geographic_data['county_fips'] = geographic_data.apply(lambda x: str(x.state_cod
 geographic_data["tract_fips"] = geographic_data.apply(lambda x: str(x.county_fips) + str(x.tracts), axis=1)
 
 #instantiate rules engine to test clean and error files
-rules_engine = rules_engine(config_data=lar_file_config_data, state_codes=geo_config["state_codes"], 
+rules_engine = rules_engine(config_data=lar_file_config_data, state_codes=geo_config["state_codes"],
 	state_codes_rev=geo_config["state_codes_rev"], geographic_data=geographic_data, full_lar_file_check=True)
 
 #get paths to check for clean files (by bank name)
@@ -65,7 +65,7 @@ bank_test_s_dir = filepaths["syntax_filepath"].format(bank_name=bank_config_data
 bank_test_q_dir = filepaths["quality_filepath"].format(bank_name=bank_config_data["name"]["value"])
 bank_test_q_pass_dir = filepaths["quality_pass_s_v_filepath"].format(bank_name=bank_config_data["name"]["value"])
 
-#FIXME add bank_test_q_pass_dir when logic is ready 
+#FIXME add bank_test_q_pass_dir when logic is ready
 edit_filepaths = [bank_test_v_dir, bank_test_s_dir, bank_test_q_dir]
 
 edit_file_names = []
@@ -87,7 +87,7 @@ clean_report_df = pd.DataFrame([], columns=['file_name', 'edit_name', 'row_type'
 edit_report_df = pd.DataFrame([], columns=['file_name', 'edit_name', 'row_type', 'field', 'fail_count', 'failed_rows'], index=[0])
 
 
-#loop over each clean file and compile report of files that failed edits. 
+#loop over each clean file and compile report of files that failed edits.
 #Produce edit report for each file with fails
 
 print("starting clean file loop")
@@ -102,7 +102,7 @@ for file in clean_file_names:
 		new_results_df = pd.DataFrame(rules_engine.results)
 		#add filename for edit tracking and reorder columns for concatenation of output
 		new_results_df["file_name"] = file
-		new_results_df = new_results_df[['file_name', 'edit_name', 'row_type', 'field', 'fail_count', 'failed_rows']] 
+		new_results_df = new_results_df[['file_name', 'edit_name', 'row_type', 'field', 'fail_count', 'failed_rows']]
 		clean_report_df = pd.concat([clean_report_df, new_results_df])
 
 print("starting test file loop")
@@ -123,7 +123,7 @@ for file in edit_file_names:
 		new_results_df = pd.DataFrame(rules_engine.results)
 	#add filename for edit tracking and reorder columns for concatenation of output
 		new_results_df["file_name"] = file
-		new_results_df = new_results_df[['file_name', 'edit_name', 'row_type', 'field', 'fail_count', 'failed_rows']] 
+		new_results_df = new_results_df[['file_name', 'edit_name', 'row_type', 'field', 'fail_count', 'failed_rows']]
 		edit_report_df = pd.concat([edit_report_df, new_results_df])
 
 print(len(clean_report_df), "clean file edit report rows")
