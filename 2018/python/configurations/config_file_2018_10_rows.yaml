@@ -1,0 +1,139 @@
+agency_code:
+  desc: The agency code of the filing institution
+  type: Integer
+  value: '9'
+calendar_quarter:
+  desc: The calendar quarter to which the filing relates
+  type: Integer
+  value: 4
+calendar_year:
+  desc: The year of activity
+  type: String
+  value: 2018
+city:
+  desc: Office city
+  type: String
+  value: 'No Where '
+clean_file:
+  desc: The file used to create error files
+  type: File
+  value: clean_file_100_rows_Bank1.txt
+cltv:
+  desc: Combinted loan to value ratio
+  type: Integer
+  value: 120
+contact_email:
+  desc: The email of the contact person
+  type: String
+  value: fakeperson11@bank11.com
+contact_name:
+  desc: The name of the contact person for the institution
+  type: String
+  value: FakePerson11
+contact_tel:
+  desc: The telephone number of the contact person
+  type: String
+  value: 123-456-7890
+discount_points:
+  desc: Maximum discount points cost
+  type: Integer
+  value: 10000
+dti:
+  desc: Maximum debt to income ratio
+  type: Integer
+  value: 100
+file_length:
+  desc: The number of lines in the clean data file
+  type: Integer
+  value: 100
+interest_rate:
+  desc: Maximum interest rate
+  type: Integer
+  value: 25
+intro_rate:
+  desc: Maximum introductory rate period
+  type: Intger
+  value: 36
+lei:
+  desc: The Legal Entity Identifier of the institution
+  type: String
+  value: FAKE0SWARM0BANK00011
+lender_credits:
+  desc: Maximum lender credits
+  type: Integer
+  value: 10000
+loan_costs:
+  desc: Maximum loan costs
+  type: Integer
+  value: 10000
+loan_term:
+  desc: Maximum loan term
+  type: Integer
+  value: 360
+max_age:
+  type: Integer
+  value: 110
+max_amount:
+  desc: Maximum loan amount in dollars
+  type: Integer
+  value: 467000
+max_credit_score:
+  desc: Maximum credit score
+  type: Integer
+  value: 840
+max_income:
+  desc: Maximum applicant income in thousands
+  type: Integer
+  value: 300
+max_rs:
+  desc: Maximum rate spread
+  type: Integer
+  value: 100
+max_units:
+  desc: Maximum total units
+  type: Integer
+  value: 30
+min_credit_score:
+  desc: Minimum credit score
+  type: Integer
+  value: 650
+name:
+  desc: The name of the institution filing data
+  type: String
+  value: Swarm Bank 11
+orig_charges:
+  desc: Maximum origination charges
+  type: Integer
+  value: 10000
+penalty_max:
+  desc: Maximum prepayment penalty term
+  type: Integer
+  value: 36
+points_and_fees:
+  desc: Maximum points and fees
+  type: Integer
+  value: 10000
+prop_val_max:
+  desc: Maximum property value in dollars
+  type: Integer
+  value: 1000000
+prop_val_min:
+  desc: Minimum property value in dollars
+  type: Integer
+  value: 100000
+state:
+  desc: Office state
+  type: String
+  value: DC
+street_addy:
+  desc: Property street address
+  type: String
+  value: 123-11 Main St.
+tax_id:
+  desc: The federal tax ID of the filing institution
+  type: String
+  value: 00-0000011
+zip_code:
+  desc: Office ZIP code
+  type: String
+  value: '84096'
